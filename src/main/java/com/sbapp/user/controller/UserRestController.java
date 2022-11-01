@@ -6,10 +6,15 @@ package com.sbapp.user.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sbapp.user.dto.User;
+
 import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.Operation;
 
 /**
  * @author Sandip
@@ -30,5 +35,11 @@ public class UserRestController {
 		String welcomeString = "************ user rest controller is reachable ************";
 		LOGGER.info(welcomeString);
 		return welcomeString;
+	}
+	
+	@Operation(summary = "Save user information")
+	@PostMapping(value = "/saveUser")
+	private void saveUserInformation(@RequestBody User user) {
+		LOGGER.info("input usersInfo: {}", user);
 	}
 }

@@ -10,7 +10,7 @@
 	</appender>
 
 	<appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>${LOGS}/sbapp.log</file>
+		<file>${LOGS}/sbapp-user-crud.log</file>
 		<encoder
 			class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
@@ -19,7 +19,7 @@
 		<rollingPolicy
 			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
 			<!-- rollover daily and when the file reaches 10 MegaBytes -->
-			<fileNamePattern>${LOGS}/archived/sbapp-%d{yyyy-MM-dd}.%i.log
+			<fileNamePattern>${LOGS}/archived/sbapp-user-crud-%d{yyyy-MM-dd}.%i.log
 			</fileNamePattern>
 			<timeBasedFileNamingAndTriggeringPolicy
 				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
@@ -35,7 +35,7 @@
 	</root>
 
 	<!-- LOG "com.baeldung*" at TRACE level -->
-	<!-- <logger name="com.sample.sbapp" level="trace" additivity="false">
+	<!-- <logger name="com.sbapp.user" level="trace" additivity="false">
 		<appender-ref ref="RollingFile" />
 		<appender-ref ref="Console" />
 	</logger> -->

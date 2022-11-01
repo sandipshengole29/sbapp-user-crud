@@ -1,7 +1,7 @@
 package com.sbapp.user.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,8 +11,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 
 /**
@@ -33,8 +40,10 @@ public class Role implements Serializable {
 	@Column(name="created_by")
 	private String createdBy;
 
+	@CreationTimestamp
+	@Temporal(value = TemporalType.TIMESTAMP)
 	@Column(name="created_date")
-	private Timestamp createdDate;
+	private Date createdDate;
 
 	@Column(name="role_name")
 	private String roleName;
@@ -42,8 +51,10 @@ public class Role implements Serializable {
 	@Column(name="updated_by")
 	private String updatedBy;
 
+	@UpdateTimestamp
+	@Temporal(value = TemporalType.TIMESTAMP)
 	@Column(name="updated_date")
-	private Timestamp updatedDate;
+	private Date updatedDate;
 
 	//bi-directional many-to-one association to RolesAuthority
 	@OneToMany(mappedBy="role")
@@ -72,12 +83,12 @@ public class Role implements Serializable {
 		this.createdBy = createdBy;
 	}
 
-	public Timestamp getCreatedDate() {
+	public Date getCreatedDate() {
 		return this.createdDate;
 	}
 
-	public void setCreatedDate(Timestamp createdDate) {
-		this.createdDate = createdDate;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = new Date();
 	}
 
 	public String getRoleName() {
@@ -96,12 +107,12 @@ public class Role implements Serializable {
 		this.updatedBy = updatedBy;
 	}
 
-	public Timestamp getUpdatedDate() {
+	public Date getUpdatedDate() {
 		return this.updatedDate;
 	}
 
-	public void setUpdatedDate(Timestamp updatedDate) {
-		this.updatedDate = updatedDate;
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = new Date();
 	}
 
 	public Set<RolesAuthority> getRolesAuthorities() {
@@ -148,4 +159,13 @@ public class Role implements Serializable {
 		return usersRole;
 	}
 
+	@PreUpdate
+	public void setUpdatedDate() {
+		this.updatedDate = new Date();
+	}
+	
+	@PrePersist
+	public void setCreatedDate() {
+		this.createdDate = new Date();
+	}
 }
